@@ -8,8 +8,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/weather/:cc/:city', (req, res) => {
-  //   res.send('weather');
   const { cc, city } = req.params;
+
   axios
     .get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city},${cc}&APPID=11968cd850d06577bf436eec5f63a333`
