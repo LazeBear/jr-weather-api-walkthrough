@@ -19,6 +19,7 @@
   "homepage": "https://github.com/LazeBear/jr-weather-api-walkthrough#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
