@@ -12,6 +12,16 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const PORT = process.env.PORT || 3000;
 
+process.on('uncaughtException', e => {
+  logger.error(e.message);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', e => {
+  logger.error(e.message);
+  process.exit(1);
+});
+
 const app = express();
 
 app.use(helmet());
