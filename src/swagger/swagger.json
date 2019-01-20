@@ -1,0 +1,268 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is an api server for JR Weather Service.",
+    "version": "1.0.0",
+    "title": "Weather-api"
+  },
+  "tags": [
+    {
+      "name": "Weather",
+      "description": "Everything about weather"
+    },
+    {
+      "name": "Default",
+      "description": "root"
+    }
+  ],
+  "paths": {
+    "/api/weather/{cc}/{city}": {
+      "get": {
+        "tags": ["Weather"],
+        "summary": "Finds all related weather",
+        "description": "Get all weather data about a city",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CC"
+          },
+          {
+            "$ref": "#/components/parameters/City"
+          },
+          {
+            "$ref": "#/components/parameters/Weather"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OK"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServerBusy"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": ["Default"],
+        "description": "welcome response",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Welcome"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "CC": {
+        "in": "path",
+        "name": "cc",
+        "description": "Country code (2 Characters) or Country name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "City": {
+        "in": "path",
+        "name": "city",
+        "description": "City name",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Weather": {
+        "in": "query",
+        "name": "weather",
+        "description": "current or forecast",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "Welcome": {
+        "description": "Welcome message",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GeneralResponse"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Data Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "OK": {
+        "description": "Successfully got the data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SuccessResponse"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Invalid params",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "ServerBusy": {
+        "description": "Try again later",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "GeneralResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "success or error"
+          },
+          "message": {
+            "type": "string",
+            "description": "error message"
+          },
+          "data": {
+            "type": "object",
+            "description": "data"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GeneralResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ResponseData"
+              }
+            }
+          }
+        ]
+      },
+      "ErrorResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GeneralResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ResponseData": {
+        "properties": {
+          "city": {
+            "$ref": "#/components/schemas/CityData"
+          },
+          "current": {
+            "$ref": "#/components/schemas/WeatherData"
+          },
+          "forecast": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ForecastData"
+            }
+          }
+        }
+      },
+      "CityData": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "coord": {
+            "type": "object",
+            "description": "geo coordinates"
+          },
+          "country": {
+            "type": "string",
+            "description": "country code"
+          },
+          "population": {
+            "type": "number",
+            "description": "population of the city"
+          }
+        }
+      },
+      "WeatherData": {
+        "properties": {
+          "minCelsius": {
+            "type": "number"
+          },
+          "maxCelsius": {
+            "type": "number"
+          },
+          "minFahrenheit": {
+            "type": "number"
+          },
+          "maxFahrenheit": {
+            "type": "number"
+          },
+          "humidity": {
+            "type": "number"
+          },
+          "windSpeed": {
+            "type": "number"
+          },
+          "windDirection": {
+            "type": "string"
+          }
+        }
+      },
+      "ForecastData": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WeatherData"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
