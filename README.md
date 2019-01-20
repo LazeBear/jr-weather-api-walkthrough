@@ -47,7 +47,6 @@ The purpose of this project is to gain some practical experience on how to build
 ### 7. Others
 
 - Handle CORS problem
-- Cache the data
 - uncaughtException and unhandledRejection
 - Swagger
 
