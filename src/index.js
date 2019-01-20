@@ -4,6 +4,8 @@ const routes = require('./routes');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger/swagger.json');
 const logger = require('./utils/logger');
 const notFoundHandler = require('./middlewares/notFound');
 const errorHandler = require('./middlewares/errorHandler');
@@ -14,6 +16,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 } else {

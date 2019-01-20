@@ -27,6 +27,8 @@
     "helmet": "^3.15.0",
     "morgan": "^1.9.1",
     "pm2": "^3.2.9",
+    "swagger-jsdoc": "^3.2.6",
+    "swagger-ui-express": "^4.0.2",
     "winston": "^3.1.0"
   },
   "devDependencies": {
