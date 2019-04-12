@@ -16,9 +16,9 @@
     }
   ],
   "paths": {
-    "/api/country/{cc}/city/{city}": {
+    "/api/weather": {
       "get": {
-        "tags": ["Country"],
+        "tags": ["Weather"],
         "summary": "Finds all related weather",
         "description": "Get all weather data about a city",
         "parameters": [
