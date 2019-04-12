@@ -63,7 +63,7 @@
   "components": {
     "parameters": {
       "CC": {
-        "in": "path",
+        "in": "query",
         "name": "cc",
         "description": "Country code (2 Characters) or Country name",
         "required": true,
@@ -72,7 +72,7 @@
         }
       },
       "City": {
-        "in": "path",
+        "in": "query",
         "name": "city",
         "description": "City name",
         "required": true,
