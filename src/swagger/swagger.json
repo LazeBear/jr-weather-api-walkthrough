@@ -82,7 +82,7 @@
       },
       "Weather": {
         "in": "query",
-        "name": "weather",
+        "name": "weatherType",
         "description": "current or forecast",
         "schema": {
           "type": "string"

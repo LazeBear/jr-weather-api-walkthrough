@@ -7,17 +7,17 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger/swagger.json');
 const logger = require('./utils/logger');
-const notFoundHandler = require('./middlewares/notFound');
-const errorHandler = require('./middlewares/errorHandler');
+const notFoundHandler = require('./middleware/notFound');
+const errorHandler = require('./middleware/errorHandler');
 
 const PORT = process.env.PORT || 3000;
 
-process.on('uncaughtException', e => {
+process.on('uncaughtException', (e) => {
   logger.error(e.message);
   process.exit(1);
 });
 
-process.on('unhandledRejection', e => {
+process.on('unhandledRejection', (e) => {
   logger.error(e.message);
   process.exit(1);
 });
