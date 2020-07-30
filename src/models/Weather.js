@@ -16,7 +16,14 @@ class Weather {
         current: new CurrentWeather(current),
         forecast: forecast.list.map((i) => new ForecastWeather(i))
       };
-      filterData(weather, weatherType);
+      if (weatherType === 'current') {
+        weather.current = new CurrentWeather(current);
+      } else if (weatherType === 'forecast') {
+        weather.forecast = forecast.list.map((i) => new ForecastWeather(i));
+      } else {
+        weather.current = new CurrentWeather(current);
+        weather.forecast = forecast.list.map((i) => new ForecastWeather(i));
+      }
       return weather;
     });
   }
